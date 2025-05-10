@@ -104,19 +104,21 @@ def dump_yaml(instances, map_width, map_height, occupancy_list, filename):
         f.write("    - !!python/tuple {}\n".format(list(o)))
     f.close()
 
+def main(args):
+    print("Loading map")
+    map_width, map_height, occupancy_list = load_map_file(args.map)
+    print("Map loaded")
+    print("Loading scenario file")
+    instances = load_scenario_file(args.scenario,
+                                occupancy_list,
+                                map_width,
+                                map_height)
+    print("Scenario loaded")
+    generate_sliced_problems(instances,
+                            map_width,
+                            map_height,
+                            occupancy_list,
+                            args.output_prefix + "_{}_agents.yaml")
 
-args = setup_args()
-print("Loading map")
-map_width, map_height, occupancy_list = load_map_file(args.map)
-print("Map loaded")
-print("Loading scenario file")
-instances = load_scenario_file(args.scenario,
-                               occupancy_list,
-                               map_width,
-                               map_height)
-print("Scenario loaded")
-generate_sliced_problems(instances,
-                         map_width,
-                         map_height,
-                         occupancy_list,
-                         args.output_prefix + "_{}_agents.yaml")
+if __name__ == "__main__":
+    main(setup_args())
