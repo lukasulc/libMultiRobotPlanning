@@ -89,7 +89,7 @@ def generate_sliced_problems(instances,
                   file_name)
 
 
-def dump_yaml(instances, map_width, map_height, occupancy_list, filename):
+def dump_yaml(instances, map_width, map_height, occupancy_list, filename, tuple_tag=False):
     f = open(filename, 'w')
     f.write("agents:\n")
     for idx, i in enumerate(instances):
@@ -101,15 +101,18 @@ def dump_yaml(instances, map_width, map_height, occupancy_list, filename):
     f.write("    dimensions: {}\n".format([map_width, map_height]))
     f.write("    obstacles:\n")
     for o in occupancy_list:
-        f.write("    - !!python/tuple {}\n".format(list(o)))
+        tag = ""
+        if tuple_tag:
+            tag = "!!python/tuple"
+        f.write("    - {} {}\n".format(tag, list(o)))
     f.close()
 
-def main(args):
+def main(map: str, scenario: str, output_prefix: str):
     print("Loading map")
-    map_width, map_height, occupancy_list = load_map_file(args.map)
+    map_width, map_height, occupancy_list = load_map_file(map)
     print("Map loaded")
     print("Loading scenario file")
-    instances = load_scenario_file(args.scenario,
+    instances = load_scenario_file(scenario,
                                 occupancy_list,
                                 map_width,
                                 map_height)
@@ -118,7 +121,7 @@ def main(args):
                             map_width,
                             map_height,
                             occupancy_list,
-                            args.output_prefix + "_{}_agents.yaml")
+                            output_prefix + "_{}_agents.yaml")
 
 if __name__ == "__main__":
-    main(setup_args())
+    main(**setup_args().__dict__)

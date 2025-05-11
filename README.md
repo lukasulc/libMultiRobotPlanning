@@ -67,3 +67,13 @@ python3 ../tools/annotate_roadmap.py ../test/mapf_simple1_roadmap_to_annotate.ya
 ./cbs_roadmap -i mapf_simple1_roadmap_annotated.yaml -o output.yaml
 python3 ../example/visualize_roadmap.py mapf_simple1_roadmap_annotated.yaml output.yaml
 ```
+
+## Generate maps
+standard_benchmark_converter.py
+````
+python3 libMultiRobotPlanning/example/standard_benchmark_converter.py ../mapf-scen-random/scen-random/warehouse-10-20-10-2-1-random-1.scen ../mapf-map/warehouse-10-20-10-2-1.map "./examples/ground/test"
+````
+multi_standard_benchmark_converter.py
+````
+python3 libMultiRobotPlanning/example/multi_standard_benchmark_converter.py ../mapf-scen-random/scen-random/ ../mapf-map/ "./examples/ground/multi/test"
+````
