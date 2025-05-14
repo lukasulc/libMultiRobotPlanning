@@ -104,7 +104,7 @@ template <typename State, typename Action, typename Cost, typename Conflict,
           typename Constraints, typename Environment>
 class ECBS {
  public:
-  ECBS(Environment& environment, float w) : m_env(environment), m_w(w) {}
+  ECBS(Environment& environment, float w, bool verbose = false) : m_env(environment), m_w(w), m_verbose(verbose) {}
 
   bool search(const std::vector<State>& initialStates,
               std::vector<PlanResult<State, Action, Cost> >& solution) {
@@ -240,7 +240,9 @@ class ECBS {
       }
 
       // create additional nodes to resolve conflict
-      std::cout << "Found conflict: " << conflict << std::endl;
+      if (m_verbose) {
+        std::cout << "Found conflict: " << conflict << std::endl;
+      }
       // std::cout << "Found conflict at t=" << conflict.time << " type: " <<
       // conflict.type << std::endl;
 
@@ -249,7 +251,9 @@ class ECBS {
       for (const auto& c : constraints) {
         // std::cout << "Add HL node for " << c.first << std::endl;
         size_t i = c.first;
-        std::cout << "create child with id " << id << std::endl;
+        if (m_verbose) {
+          std::cout << "create child with id " << id << std::endl;
+        }
         HighLevelNode newNode = P;
         newNode.id = id;
         // (optional) check that this constraint was not included already
@@ -272,7 +276,10 @@ class ECBS {
         newNode.focalHeuristic = m_env.focalHeuristic(newNode.solution);
 
         if (success) {
-          std::cout << "  success. cost: " << newNode.cost << std::endl;
+          if (m_verbose) {
+            std::cout << "  success. cost: " << newNode.cost << std::endl;
+          }
+
           auto handle = open.push(newNode);
           (*handle).handle = handle;
           if (newNode.cost <= bestCost * m_w) {
@@ -418,6 +425,7 @@ class ECBS {
  private:
   Environment& m_env;
   float m_w;
+  bool m_verbose;
   typedef AStarEpsilon<State, Action, Cost, LowLevelEnvironment>
       LowLevelSearch_t;
 };
