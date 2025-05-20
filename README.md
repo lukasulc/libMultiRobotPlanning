@@ -92,5 +92,5 @@ mkdir examples/ground/empty-48-48.map
 
 auto_convert_benchmarks.py
 ````
-python3 libMultiRobotPlanning/tools/auto_convert_benchmarks.py --scen ../mapf-scen-even/scen-even/ --map ../mapf-map/empty-48-48.map --output_base "./examples/ground/empty-48-48/even-1/"
+python3 libMultiRobotPlanning/tools/auto_convert_benchmarks.py --scen ../mapf-scen-even/scen-even/ --map ../mapf-map/empty-48-48.map --output_base "./examples/ground/"
 ````
