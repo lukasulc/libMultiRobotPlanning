@@ -69,6 +69,9 @@ python3 ../example/visualize_roadmap.py mapf_simple1_roadmap_annotated.yaml outp
 ```
 
 ## Generate maps
+
+Donwload raw maps from: https://movingai.com/benchmarks/mapf/index.html
+
 ### Ex. 1
 ````
 mkdir examples/ground/warehouse-10-20-10-2-1
@@ -78,12 +81,16 @@ standard_benchmark_converter.py
 ````
 python3 libMultiRobotPlanning/example/standard_benchmark_converter.py ../mapf-scen-random/scen-random/warehouse-10-20-10-2-1-random-1.scen ../mapf-map/warehouse-10-20-10-2-1.map "./examples/ground/warehouse-10-20-10-2-1/random-1/"
 ````
-### Ex.2
+
+### Ex. 2
+This example takes longer to execute but it generates
+more examples.
+
 ````
-mkdir example/ground/multi
+mkdir examples/ground/empty-48-48.map
 ````
 
-multi_standard_benchmark_converter.py
+auto_convert_benchmarks.py
 ````
-python3 libMultiRobotPlanning/example/multi_standard_benchmark_converter.py ../mapf-scen-random/scen-random/ ../mapf-map/ "./examples/ground/multi/test"
+python3 libMultiRobotPlanning/tools/auto_convert_benchmarks.py --scen ../mapf-scen-even/scen-even/ --map ../mapf-map/empty-48-48.map --output_base "./examples/ground/empty-48-48/even-1/"
 ````
