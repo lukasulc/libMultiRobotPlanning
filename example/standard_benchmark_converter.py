@@ -13,6 +13,7 @@ def setup_args():
     parser.add_argument("scenario", type=str, help=".scen Scenario file")
     parser.add_argument("map", type=str, help=".map Map file")
     parser.add_argument("output_prefix", type=str, help=".yaml Output file prefix")
+    parser.add_argument("--count", type=int, help="Max number of agents to generate problems for",)
     return parser.parse_args()
 
 
@@ -107,7 +108,7 @@ def dump_yaml(instances, map_width, map_height, occupancy_list, filename, tuple_
         f.write("    - {} {}\n".format(tag, list(o)))
     f.close()
 
-def main(map: str, scenario: str, output_prefix: str):
+def main(map: str, scenario: str, output_prefix: str, count: int):
     print("Loading map")
     map_width, map_height, occupancy_list = load_map_file(map)
     print("Map loaded")
@@ -116,6 +117,8 @@ def main(map: str, scenario: str, output_prefix: str):
                                 occupancy_list,
                                 map_width,
                                 map_height)
+    if count is not None and count < len(instances):
+        instances = instances[:count]
     print("Scenario loaded")
     generate_sliced_problems(instances,
                             map_width,

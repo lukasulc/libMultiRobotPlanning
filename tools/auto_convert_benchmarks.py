@@ -9,6 +9,7 @@ def get_args():
     parser.add_argument("--map", type=str, required=True, help="Path to the .map file")
     parser.add_argument("--scen_dir", type=str, default="../mapf-scen-random/scen-random/", help="Directory with .scen files")
     parser.add_argument("--output_base", type=str, default="./examples/ground/", help="Base output directory")
+    parser.add_argument("--count", type=int, default=400, help="Max number of agents to generate problems for")
     return parser.parse_args()
 
 def get_prefix(filename):
@@ -42,7 +43,8 @@ def main(args):
             "libMultiRobotPlanning/example/standard_benchmark_converter.py",
             scen,
             map_file,
-            output_prefix
+            output_prefix,
+            "--count", str(args.count)
         ], check=True)
 
 if __name__ == "__main__":

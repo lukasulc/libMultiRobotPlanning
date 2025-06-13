@@ -94,3 +94,16 @@ auto_convert_benchmarks.py
 ````
 python3 libMultiRobotPlanning/tools/auto_convert_benchmarks.py --scen ../mapf-scen-even/scen-even/ --map ../mapf-map/empty-48-48.map --output_base "./examples/ground/"
 ````
+
+### Ex. 3
+````
+EX_PATH=brc202d
+````
+
+````
+mkdir examples/ground/$EX_PATH
+````
+
+````
+python3 libMultiRobotPlanning/tools/auto_convert_benchmarks.py --scen ../mapf-scen-even/scen-even/ --map ../mapf-map/$EX_PATH.map --output_base "./examples/ground/" --count 500
+````
